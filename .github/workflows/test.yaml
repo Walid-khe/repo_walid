@@ -1,0 +1,21 @@
+name: Verifier Code
+
+on: [push, pull_request]
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+
+    steps:
+    - run: pwd
+    - run: ls
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - run: ls ${{github.workspace}}
+
+    - name: Installer PHP_CodeSniffer
+      run: composer global require "squizlabs/php_codesniffer=*"
+
+
+    - name: Exécuter PHPCS
+      run: ~/.composer/vendor/bin/phpcs ./src
